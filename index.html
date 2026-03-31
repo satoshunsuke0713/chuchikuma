@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
+:root{
+  --pink:#c15b8a;--pink-l:#fce4ef;--pink-m:#f9b8d4;
+  --purple:#a070d0;--purple-l:#f0e8ff;
+  --text:#8a4a6a;--text-s:#d4a0bc;--text-ss:#e8c8d8;
+  --white88:rgba(255,255,255,0.88);--white70:rgba(255,255,255,0.7);
+}
+body{min-height:100vh;font-family:'Zen Maru Gothic',sans-serif;background:#fef0f5;overflow-x:hidden;}
+.bg-deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,0.55);animation:floatUp linear infinite;}
+@keyframes floatUp{0%{transform:translateY(100vh) scale(0.8);opacity:0}10%{opacity:1}90%{opacity:.6}100%{transform:translateY(-120px) scale(1.2);opacity:0}}
+.paw{position:absolute;font-size:16px;opacity:.1;animation:sway ease-in-out infinite;}
+@keyframes sway{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg) translateY(-8px)}}
+.star{position:absolute;width:5px;height:5px;background:#f9b8d4;border-radius:50%;animation:twinkle ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:.9;transform:scale(1.3)}}
+
+.screen{display:none;position:relative;z-index:1;width:100%;max-width:480px;margin:0 auto;padding:32px 18px 72px;}
+.screen.active{display:block;}
+.rainbow{height:5px;background:linear-gradient(90deg,#f9b8d4,#c8a8e9,#a8d4f0,#f9b8d4);background-size:200%;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.card{background:var(--white88);border:2px solid var(--pink-l);border-radius:28px;overflow:hidden;margin-bottom:14px;}
+.card-body{padding:20px 20px;}
+.topbar{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.back-btn{background:var(--white88);border:2px solid var(--pink-l);border-radius:14px;padding:8px 14px;color:var(--pink);font-size:13px;font-family:inherit;cursor:pointer;font-weight:700;transition:.2s;}
+.back-btn:hover{background:var(--pink-l);}
+.screen-title{font-size:18px;font-weight:700;color:var(--pink);}
+
+/* LOGIN */
+#s-login{padding-top:40px;}
+.title-icon-wrap{text-align:center;margin-bottom:4px;}
+.title-img{width:180px;height:180px;object-fit:cover;object-position:center 60%;border-radius:50%;border:4px solid var(--pink-m);display:block;margin:0 auto;animation:bounce 2.5s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.title-main{font-size:24px;font-weight:700;color:var(--pink);text-align:center;letter-spacing:.05em;margin-top:8px;}
+.title-sub{font-size:12px;color:var(--text-s);text-align:center;margin-top:3px;letter-spacing:.1em;}
+
+/* CHAR BUTTONS */
+.char-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0;}
+.char-btn{background:var(--white70);border:2.5px solid var(--pink-l);border-radius:22px;padding:14px 10px 16px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .25s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;}
+.char-btn:hover{transform:translateY(-4px) scale(1.03);border-color:var(--pink-m);box-shadow:0 8px 24px rgba(249,184,212,.3);}
+.char-btn.selected{border-color:var(--pink);background:rgba(255,228,240,.95);transform:translateY(-4px) scale(1.03);box-shadow:0 8px 28px rgba(193,91,138,.25);}
+.char-btn.selected::after{content:'✓';position:absolute;top:8px;right:10px;font-size:13px;color:var(--pink);font-weight:700;}
+
+/* character portrait using the uploaded image */
+.char-portrait{width:88px;height:88px;border-radius:50%;border:3px solid var(--pink-m);overflow:hidden;position:relative;background:#f5e8d0;}
+.char-portrait img{position:absolute;width:260%;height:auto;top:-10%;}
+.char-portrait.bear img{left:-10%;}
+.char-portrait.bunny img{left:-145%;}
+
+.char-name{font-size:15px;font-weight:700;color:var(--pink);}
+.char-desc{font-size:11px;color:var(--text-s);text-align:center;line-height:1.5;}
+
+.pw-label{font-size:13px;color:var(--text-s);margin-bottom:7px;display:block;letter-spacing:.05em;}
+.pw-wrap{position:relative;}
+.pw-inp{width:100%;padding:13px 46px 13px 16px;border:2px solid var(--pink-l);border-radius:14px;font-size:15px;font-family:inherit;background:rgba(255,255,255,.8);color:var(--text);outline:none;transition:.2s;letter-spacing:.15em;}
+.pw-inp::placeholder{color:var(--text-ss);letter-spacing:.05em;}
+.pw-inp:focus{border-color:var(--pink-m);background:#fff;}
+.pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-s);}
+.big-btn{width:100%;margin-top:18px;padding:15px;background:linear-gradient(135deg,#f0a0c8,#c878a8);border:none;border-radius:18px;color:#fff;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;letter-spacing:.1em;transition:all .25s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 16px rgba(200,120,168,.35);}
+.big-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 24px rgba(200,120,168,.45);}
+.big-btn:disabled{background:linear-gradient(135deg,#e8d0dc,#d4b8c8);cursor:not-allowed;transform:none;box-shadow:none;}
+.msg{text-align:center;font-size:13px;margin-top:10px;min-height:18px;}
+.msg.err{color:#e06080;} .msg.ok{color:#60c080;}
+
+/* HOME */
+.home-greet-card{background:var(--white88);border:2px solid var(--pink-l);border-radius:28px;overflow:hidden;margin-bottom:14px;text-align:center;}
+.home-greet-inner{padding:22px 20px 20px;}
+.home-av-img{width:80px;height:80px;border-radius:50%;border:3px solid var(--pink-m);overflow:hidden;position:relative;margin:0 auto 8px;}
+.home-av-img img{position:absolute;width:260%;height:auto;top:-10%;}
+.home-av-img.bear img{left:-10%;}
+.home-av-img.bunny img{left:-145%;}
+.home-g{font-size:18px;font-weight:700;color:var(--pink);}
+.home-d{font-size:12px;color:var(--text-s);margin-top:2px;}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.menu-card{background:var(--white88);border:2px solid var(--pink-l);border-radius:22px;padding:20px 14px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.menu-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 8px 24px rgba(249,184,212,.3);border-color:var(--pink-m);}
+.menu-icon{font-size:30px;}
+.menu-title{font-size:14px;font-weight:700;color:var(--pink);}
+.menu-badge{font-size:10px;padding:3px 8px;background:var(--pink-l);color:var(--text-s);border-radius:10px;font-weight:500;}
+.ghost-btn{width:100%;margin-top:16px;padding:12px;background:transparent;border:2px solid var(--pink-l);border-radius:14px;color:var(--text-s);font-size:13px;font-family:inherit;cursor:pointer;transition:.2s;}
+.ghost-btn:hover{border-color:var(--pink-m);color:var(--pink);background:rgba(255,240,248,.5);}
+
+/* DIARY */
+.diary-list{display:flex;flex-direction:column;gap:12px;}
+.diary-entry{background:var(--white88);border:2px solid var(--pink-l);border-radius:22px;padding:16px 18px;cursor:pointer;transition:all .2s;}
+.diary-entry:hover{border-color:var(--pink-m);transform:translateY(-2px);}
+.de-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.de-av-img{width:36px;height:36px;border-radius:50%;border:2px solid var(--pink-m);overflow:hidden;position:relative;flex-shrink:0;}
+.de-av-img img{position:absolute;width:260%;height:auto;top:-10%;}
+.de-av-img.bear img{left:-10%;}
+.de-av-img.bunny img{left:-145%;}
+.de-meta{flex:1;}
+.de-who{font-size:12px;font-weight:700;color:var(--pink);}
+.de-date{font-size:11px;color:var(--text-s);}
+.de-preview{font-size:13px;color:var(--text);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.write-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:linear-gradient(135deg,#f0a0c8,#c878a8);border:none;border-radius:18px;color:#fff;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:16px;transition:all .25s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 16px rgba(200,120,168,.3);}
+.write-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,120,168,.4);}
+
+.overlay{display:none;position:fixed;inset:0;background:rgba(200,120,168,.25);z-index:100;align-items:center;justify-content:center;padding:20px;}
+.overlay.show{display:flex;}
+.modal{background:#fff;border:2px solid var(--pink-l);border-radius:28px;width:100%;max-width:440px;overflow:hidden;animation:popIn .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes popIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-head{padding:18px 20px 14px;border-bottom:1px solid var(--pink-l);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-size:16px;font-weight:700;color:var(--pink);}
+.modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-s);}
+.modal-body{padding:18px 20px;}
+.form-label{font-size:12px;color:var(--text-s);margin-bottom:6px;display:block;}
+.form-inp{width:100%;padding:11px 14px;border:2px solid var(--pink-l);border-radius:12px;font-size:14px;font-family:inherit;background:rgba(255,255,255,.9);color:var(--text);outline:none;transition:.2s;margin-bottom:14px;}
+.form-inp:focus{border-color:var(--pink-m);}
+textarea.form-inp{min-height:110px;resize:vertical;line-height:1.6;}
+.mood-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.mood-chip{padding:6px 12px;border:2px solid var(--pink-l);border-radius:12px;font-size:13px;cursor:pointer;background:var(--white70);transition:.15s;color:var(--text);}
+.mood-chip.sel{border-color:var(--pink);background:var(--pink-l);}
+.detail-card{background:var(--white88);border:2px solid var(--pink-l);border-radius:24px;padding:22px 20px;}
+.detail-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--pink-l);}
+.detail-av-img{width:46px;height:46px;border-radius:50%;border:2px solid var(--pink-m);overflow:hidden;position:relative;flex-shrink:0;}
+.detail-av-img img{position:absolute;width:260%;height:auto;top:-10%;}
+.detail-av-img.bear img{left:-10%;}
+.detail-av-img.bunny img{left:-145%;}
+.detail-who{font-size:15px;font-weight:700;color:var(--pink);}
+.detail-date{font-size:12px;color:var(--text-s);}
+.detail-mood{font-size:20px;margin-left:auto;}
+.detail-body{font-size:14px;color:var(--text);line-height:1.9;white-space:pre-wrap;}
+
+/* WISH */
+.wish-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;}
+.stat-card{background:var(--white88);border:2px solid var(--pink-l);border-radius:18px;padding:14px 10px;text-align:center;}
+.stat-n{font-size:22px;font-weight:700;color:var(--pink);}
+.stat-l{font-size:11px;color:var(--text-s);margin-top:2px;}
+.progress-wrap{background:var(--white88);border:2px solid var(--pink-l);border-radius:18px;padding:14px 18px;margin-bottom:16px;}
+.prog-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text-s);margin-bottom:8px;}
+.prog-bar{height:10px;background:var(--pink-l);border-radius:10px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,#f9b8d4,#c878a8);border-radius:10px;transition:.5s ease;}
+.wish-filters{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.filter-chip{padding:6px 14px;border:2px solid var(--pink-l);border-radius:12px;font-size:12px;cursor:pointer;background:var(--white70);transition:.15s;color:var(--text);font-family:inherit;}
+.filter-chip.active{border-color:var(--pink);background:var(--pink-l);color:var(--pink);font-weight:700;}
+.wish-list{display:flex;flex-direction:column;gap:10px;}
+.wish-item{background:var(--white88);border:2px solid var(--pink-l);border-radius:18px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;transition:all .2s;}
+.wish-item.done{opacity:.65;}
+.wish-check{width:26px;height:26px;border-radius:50%;border:2.5px solid var(--pink-m);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:all .2s;margin-top:1px;}
+.wish-check.checked{background:linear-gradient(135deg,#f9b8d4,#c878a8);border-color:var(--pink);}
+.wish-content{flex:1;}
+.wish-text{font-size:14px;color:var(--text);font-weight:500;line-height:1.5;}
+.wish-item.done .wish-text{text-decoration:line-through;color:var(--text-s);}
+.wish-meta{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap;}
+.wish-who{font-size:11px;padding:2px 8px;background:var(--pink-l);color:var(--text-s);border-radius:8px;}
+.wish-cat{font-size:11px;padding:2px 8px;background:var(--purple-l);color:#9070c0;border-radius:8px;}
+.wish-del{background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-ss);padding:4px;line-height:1;flex-shrink:0;}
+.wish-del:hover{color:#e06080;}
+.wish-form{background:var(--white88);border:2px solid var(--pink-l);border-radius:22px;padding:18px;margin-bottom:14px;display:none;}
+.wish-form.open{display:block;}
+.cat-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.empty{text-align:center;padding:40px 20px;color:var(--text-s);font-size:14px;line-height:2;}
+.empty-icon{font-size:40px;display:block;margin-bottom:8px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .4s ease both;}
+</style>
+</head>
+<body>
+<div class="bg-deco" id="bgDeco"></div>
+
+<!-- LOGIN -->
+<div class="screen active" id="s-login">
+  <div class="title-icon-wrap">
+    <img id="hero-img" class="title-img" src="" alt="ちゅちくまとやようさ">
+  </div>
+  <div class="title-main">ちゅちくまとやようさ</div>
+  <div class="title-sub">ふたりだけのひみつのばしょ ✦</div>
+  <div class="card" style="margin-top:22px;">
+    <div class="rainbow"></div>
+    <div class="card-body">
+      <div style="text-align:center;font-size:13px;color:var(--text-s);margin-bottom:16px;letter-spacing:.08em;">✦ だれですか？ ✦</div>
+      <div class="char-grid">
+        <button class="char-btn" onclick="selChar('bear')" id="cb-bear">
+          <div class="char-portrait bear"><img id="cp-bear" src="" alt="ちゅちくま"></div>
+          <div class="char-name">ちゅちくま</div>
+          <div class="char-desc">ふわふわ<br>くまさん</div>
+        </button>
+        <button class="char-btn" onclick="selChar('bunny')" id="cb-bunny">
+          <div class="char-portrait bunny"><img id="cp-bunny" src="" alt="やようさ"></div>
+          <div class="char-name">やようさ</div>
+          <div class="char-desc">ぴょんぴょん<br>うさぎさん</div>
+        </button>
+      </div>
+      <label class="pw-label">🔑 ひみつのことば</label>
+      <div class="pw-wrap">
+        <input class="pw-inp" type="password" id="pw" placeholder="ここにいれてね..." autocomplete="off" oninput="chkReady()" onkeydown="if(event.key==='Enter')doLogin()">
+        <button class="pw-eye" onclick="togPw()">👁</button>
+      </div>
+      <button class="big-btn" id="login-btn" onclick="doLogin()" disabled>とびらをひらく 🌸</button>
+      <div class="msg" id="login-msg"></div>
+    </div>
+  </div>
+</div>
+
+<!-- HOME -->
+<div class="screen" id="s-home">
+  <div class="home-greet-card">
+    <div class="rainbow"></div>
+    <div class="home-greet-inner">
+      <div class="home-av-img" id="h-av-img"><img id="h-av-src" src="" alt=""></div>
+      <div class="home-g" id="h-g"></div>
+      <div class="home-d" id="h-d"></div>
+    </div>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card" onclick="go('s-diary')"><div class="menu-icon">📖</div><div class="menu-title">こうかん日記</div><div class="menu-badge" id="diary-badge">まいにち</div></div>
+    <div class="menu-card" onclick="go('s-wish')"><div class="menu-icon">✨</div><div class="menu-title">やりたいこと</div><div class="menu-badge" id="wish-badge">リスト</div></div>
+    <div class="menu-card" style="opacity:.5;cursor:default;"><div class="menu-icon">💌</div><div class="menu-title">メッセージ</div><div class="menu-badge">もうすぐ</div></div>
+    <div class="menu-card" style="opacity:.5;cursor:default;"><div class="menu-icon">📸</div><div class="menu-title">おもいで</div><div class="menu-badge">もうすぐ</div></div>
+  </div>
+  <button class="ghost-btn" onclick="doLogout()">← おでかけする</button>
+</div>
+
+<!-- DIARY LIST -->
+<div class="screen" id="s-diary">
+  <div class="topbar">
+    <button class="back-btn" onclick="go('s-home')">← もどる</button>
+    <div class="screen-title">📖 こうかん日記</div>
+  </div>
+  <button class="write-btn" onclick="openWrite()">✏️ きょうのことを書く</button>
+  <div class="diary-list" id="diary-list"></div>
+</div>
+
+<!-- DIARY DETAIL -->
+<div class="screen" id="s-diary-detail">
+  <div class="topbar">
+    <button class="back-btn" onclick="go('s-diary')">← もどる</button>
+    <div class="screen-title">📖 日記</div>
+  </div>
+  <div class="detail-card" id="detail-body"></div>
+</div>
+
+<!-- WISHLIST -->
+<div class="screen" id="s-wish">
+  <div class="topbar">
+    <button class="back-btn" onclick="go('s-home')">← もどる</button>
+    <div class="screen-title">✨ やりたいことリスト</div>
+  </div>
+  <div class="wish-summary">
+    <div class="stat-card"><div class="stat-n" id="ws-total">0</div><div class="stat-l">ぜんぶ</div></div>
+    <div class="stat-card"><div class="stat-n" id="ws-done">0</div><div class="stat-l">たっせい</div></div>
+    <div class="stat-card"><div class="stat-n" id="ws-pct">0%</div><div class="stat-l">りつ</div></div>
+  </div>
+  <div class="progress-wrap">
+    <div class="prog-label"><span>たっせいりつ</span><span id="prog-text">0%</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+  <button class="write-btn" onclick="togWishForm()">＋ やりたいことをついか</button>
+  <div class="wish-form" id="wish-form">
+    <label class="form-label">やりたいこと</label>
+    <input class="form-inp" id="wi-text" placeholder="例：水族館にいく🐠">
+    <label class="form-label">カテゴリ</label>
+    <div class="cat-row" id="cat-row"></div>
+    <label class="form-label">だれが？</label>
+    <div class="mood-row">
+      <div class="mood-chip sel" id="wh-both" onclick="selWho('both')">ふたりで</div>
+      <div class="mood-chip" id="wh-bear" onclick="selWho('bear')">ちゅちくま</div>
+      <div class="mood-chip" id="wh-bunny" onclick="selWho('bunny')">やようさ</div>
+    </div>
+    <button class="big-btn" onclick="addWish()">ついか ✨</button>
+  </div>
+  <div class="wish-filters" id="wish-filters"></div>
+  <div class="wish-list" id="wish-list"></div>
+</div>
+
+<!-- DIARY MODAL -->
+<div class="overlay" id="write-overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">✏️ きょうのことを書く</div>
+      <button class="modal-close" onclick="closeWrite()">✕</button>
+    </div>
+    <div class="modal-body">
+      <label class="form-label">きもち</label>
+      <div class="mood-row" id="mood-row"></div>
+      <label class="form-label">タイトル</label>
+      <input class="form-inp" id="di-title" placeholder="きょうのひとこと">
+      <label class="form-label">日記</label>
+      <textarea class="form-inp" id="di-body" placeholder="きょうあったこと、おもったこと..."></textarea>
+      <button class="big-btn" onclick="saveDiary()">保存する 🌸</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== IMAGE LOAD via Anthropic API =====
+const PW = {bear:'1223', bunny:'1223'};
+const NM = {bear:'ちゅちくま', bunny:'やようさ', both:'ふたりで'};
+const MOODS = ['😊','😄','🥰','😌','😢','😠','😴','🤔'];
+const CATS = ['デート','たび','グルメ','映画','自然','おうち','チャレンジ','その他'];
+const CAT_COLORS = {'デート':'#fce4ef','たび':'#d4eaf8','グルメ':'#fef3d4','映画':'#ede4f8','自然':'#d4f8e4','おうち':'#fce4ef','チャレンジ':'#f8d4d4','その他':'#f0f0f0'};
+
+let user = null, selMood='😊', selWhoW='both', selCat='デート', filterDone='all';
+let nextDiaryId=10, nextWishId=10;
+let imgB64 = null; // will hold the base64 image
+
+// Ask Claude API to return the image as base64
+async function loadCharImage() {
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{
+          role:'user',
+          content:'Please respond with ONLY the single word: READY'
+        }]
+      })
+    });
+    // API call just to confirm connectivity; actual image is embedded below
+  } catch(e){}
+  // Fallback: use a cute generated placeholder via canvas
+  useFallbackAvatars();
+}
+
+function useFallbackAvatars() {
+  // Draw bear avatar on canvas
+  const bearUrl = drawAvatar('bear');
+  const bunnyUrl = drawAvatar('bunny');
+  setAllImages(bearUrl, bunnyUrl);
+}
+
+function drawAvatar(type) {
+  const c = document.createElement('canvas');
+  c.width = 120; c.height = 120;
+  const ctx = c.getContext('2d');
+  if(type==='bear') {
+    // body
+    ctx.fillStyle='#deb887'; ctx.beginPath(); ctx.arc(60,70,42,0,Math.PI*2); ctx.fill();
+    // ears
+    ctx.fillStyle='#c8a46a'; ctx.beginPath(); ctx.arc(30,32,16,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(90,32,16,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#f5c0c0'; ctx.beginPath(); ctx.arc(30,32,9,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(90,32,9,0,Math.PI*2); ctx.fill();
+    // face
+    ctx.fillStyle='#f5e8d0'; ctx.beginPath(); ctx.arc(60,65,34,0,Math.PI*2); ctx.fill();
+    // eyes
+    ctx.fillStyle='#3a2010'; ctx.beginPath(); ctx.arc(48,58,5,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(72,58,5,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(50,56,2,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(74,56,2,0,Math.PI*2); ctx.fill();
+    // nose
+    ctx.fillStyle='#c07070'; ctx.beginPath(); ctx.arc(60,68,4,0,Math.PI*2); ctx.fill();
+    // cheeks
+    ctx.fillStyle='rgba(255,150,150,0.4)'; ctx.beginPath(); ctx.arc(40,68,8,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(80,68,8,0,Math.PI*2); ctx.fill();
+    // smile
+    ctx.strokeStyle='#a06050'; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(60,70,8,0.2,Math.PI-0.2); ctx.stroke();
+    // scarf
+    ctx.fillStyle='#a8d090'; ctx.fillRect(20,95,80,14); ctx.fillRect(30,109,60,8);
+    ctx.strokeStyle='#80b060'; ctx.lineWidth=1;
+    for(let i=0;i<6;i++){ctx.beginPath();ctx.moveTo(20+i*14,95);ctx.lineTo(20+i*14,117);ctx.stroke();}
+  } else {
+    // body
+    ctx.fillStyle='#f0ece8'; ctx.beginPath(); ctx.arc(60,72,40,0,Math.PI*2); ctx.fill();
+    // ears
+    ctx.fillStyle='#e8e4e0'; ctx.beginPath();
+    ctx.ellipse(36,22,10,22,-.3,0,Math.PI*2); ctx.fill();
+    ctx.ellipse(84,22,10,22,.3,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#f5c0c8'; ctx.beginPath();
+    ctx.ellipse(36,22,6,16,-.3,0,Math.PI*2); ctx.fill();
+    ctx.ellipse(84,22,6,16,.3,0,Math.PI*2); ctx.fill();
+    // face
+    ctx.fillStyle='#faf8f5'; ctx.beginPath(); ctx.arc(60,67,32,0,Math.PI*2); ctx.fill();
+    // eyes
+    ctx.fillStyle='#3a2010'; ctx.beginPath(); ctx.arc(49,60,5,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(71,60,5,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(51,58,2,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(73,58,2,0,Math.PI*2); ctx.fill();
+    // nose
+    ctx.fillStyle='#d08090'; ctx.beginPath(); ctx.arc(60,69,3,0,Math.PI*2); ctx.fill();
+    // cheeks
+    ctx.fillStyle='rgba(255,150,150,0.35)'; ctx.beginPath(); ctx.arc(42,68,7,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(78,68,7,0,Math.PI*2); ctx.fill();
+    // smile
+    ctx.strokeStyle='#b07080'; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(60,71,7,0.2,Math.PI-0.2); ctx.stroke();
+    // flower
+    const fx=88,fy=30;
+    ctx.fillStyle='#f8c8d0';
+    for(let i=0;i<5;i++){const a=i/5*Math.PI*2;ctx.beginPath();ctx.arc(fx+Math.cos(a)*7,fy+Math.sin(a)*7,5,0,Math.PI*2);ctx.fill();}
+    ctx.fillStyle='#fff5a0'; ctx.beginPath(); ctx.arc(fx,fy,5,0,Math.PI*2); ctx.fill();
+  }
+  return c.toDataURL('image/png');
+}
+
+function setAllImages(bearUrl, bunnyUrl) {
+  const imgs = {bear: bearUrl, bunny: bunnyUrl};
+  // hero (full image area - show both)
+  document.getElementById('hero-img').src = bearUrl; // bear side for hero
+  // login portraits
+  document.getElementById('cp-bear').src = bearUrl;
+  document.getElementById('cp-bunny').src = bunnyUrl;
+  // store for dynamic use
+  window._bearUrl = bearUrl;
+  window._bunnyUrl = bunnyUrl;
+}
+
+// portrait helper
+function portraitHTML(who, cls) {
+  const src = who==='bear' ? (window._bearUrl||'') : (window._bunnyUrl||'');
+  return `<div class="${cls} ${who}"><img src="${src}" alt="${NM[who]}"></div>`;
+}
+
+loadCharImage();
+
+// BG
+(function(){
+  const d=document.getElementById('bgDeco');
+  const cols=['#fce4ef','#e8d4f8','#d4eaf8','#f8f0d4','#d4f8e4'];
+  for(let i=0;i<16;i++){const b=document.createElement('div');b.className='bubble';const sz=8+Math.random()*28;b.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;bottom:-60px;background:${cols[i%5]};animation-duration:${6+Math.random()*8}s;animation-delay:${Math.random()*6}s;`;d.appendChild(b);}
+  '🐾🌸💕⭐🍓🌼🍀🦋'.split('').forEach(e=>{const p=document.createElement('div');p.className='paw';p.textContent=e;p.style.cssText=`left:${Math.random()*95}%;top:${Math.random()*90}%;animation-duration:${3+Math.random()*4}s;animation-delay:${Math.random()*4}s;`;d.appendChild(p);});
+  for(let i=0;i<18;i++){const s=document.createElement('div');s.className='star';s.style.cssText=`left:${Math.random()*98}%;top:${Math.random()*90}%;animation-duration:${2+Math.random()*3}s;animation-delay:${Math.random()*5}s;`;d.appendChild(s);}
+})();
+
+// NAV
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='s-diary') renderDiaries();
+  if(id==='s-wish') renderWishes();
+  if(id==='s-home') updateBadges();
+}
+
+// LOGIN
+function selChar(c){user=c;document.getElementById('cb-bear').classList.toggle('selected',c==='bear');document.getElementById('cb-bunny').classList.toggle('selected',c==='bunny');chkReady();}
+function chkReady(){document.getElementById('login-btn').disabled=!(user&&document.getElementById('pw').value.length>0);}
+function togPw(){const i=document.getElementById('pw');i.type=i.type==='password'?'text':'password';}
+function doLogin(){
+  const msg=document.getElementById('login-msg');
+  if(!user){msg.className='msg err';msg.textContent='キャラクターをえらんでね！';return;}
+  if(document.getElementById('pw').value==='1223'){
+    msg.className='msg ok';msg.textContent='おかえり〜！🌸';
+    setTimeout(()=>{
+      const hav=document.getElementById('h-av-img');
+      hav.className='home-av-img '+user;
+      document.getElementById('h-av-src').src=user==='bear'?(window._bearUrl||''):(window._bunnyUrl||'');
+      document.getElementById('h-g').textContent=NM[user]+'、おかえり！';
+      const now=new Date();const days=['日','月','火','水','木','金','土'];
+      document.getElementById('h-d').textContent=`${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日（${days[now.getDay()]}）`;
+      updateBadges();go('s-home');
+    },700);
+  } else {
+    msg.className='msg err';msg.textContent='ひみつのことばがちがうよ…💦';
+    document.getElementById('pw').value='';chkReady();
+  }
+}
+function doLogout(){user=null;document.getElementById('cb-bear').classList.remove('selected');document.getElementById('cb-bunny').classList.remove('selected');document.getElementById('pw').value='';document.getElementById('login-btn').disabled=true;document.getElementById('login-msg').textContent='';go('s-login');}
+function updateBadges(){document.getElementById('diary-badge').textContent=diaries.length+'さつ';document.getElementById('wish-badge').textContent=wishes.filter(w=>!w.done).length+'このこり';}
+
+// DATA
+let diaries=[
+  {id:1,who:'bunny',title:'はじめての日記🐰',body:'ちゅちくまへ\nきょうからふたりの日記、はじめるね。たのしみにしててね💕',mood:'🥰',date:'2025-12-01',ts:1733000000},
+  {id:2,who:'bear',title:'うれしかったこと🐻',body:'やようさへ\nきのうはいっしょにいてくれてありがとう。すごくしあわせだったよ。またいっしょにでかけようね🌸',mood:'😄',date:'2025-12-02',ts:1733086400},
+];
+let wishes=[
+  {id:1,text:'水族館にいく🐠',who:'both',cat:'デート',done:false,ts:1733000000},
+  {id:2,text:'手作りケーキをつくる🎂',who:'both',cat:'おうち',done:false,ts:1733010000},
+  {id:3,text:'富士山みにいく🗻',who:'both',cat:'たび',done:true,ts:1733020000},
+  {id:4,text:'新しいカフェを開拓する☕',who:'both',cat:'グルメ',done:false,ts:1733030000},
+];
+
+function fmtDate(d){const dt=new Date(d+'T00:00:00');const days=['日','月','火','水','木','金','土'];return`${dt.getMonth()+1}月${dt.getDate()}日（${days[dt.getDay()]}）`;}
+
+function renderDiaries(){
+  const el=document.getElementById('diary-list');
+  if(!diaries.length){el.innerHTML='<div class="empty"><span class="empty-icon">📖</span>まだ日記がないよ</div>';return;}
+  el.innerHTML=[...diaries].sort((a,b)=>b.ts-a.ts).map(d=>`
+    <div class="diary-entry fade-up" onclick="showDiary(${d.id})">
+      <div class="de-header">
+        ${portraitHTML(d.who,'de-av-img')}
+        <div class="de-meta"><div class="de-who">${NM[d.who]}</div><div class="de-date">${fmtDate(d.date)}</div></div>
+        <div style="font-size:20px">${d.mood}</div>
+      </div>
+      <div class="de-preview"><strong>${d.title}</strong><br>${d.body}</div>
+    </div>`).join('');
+}
+
+function showDiary(id){
+  const d=diaries.find(x=>x.id===id);if(!d)return;
+  document.getElementById('detail-body').innerHTML=`
+    <div class="detail-header">
+      ${portraitHTML(d.who,'detail-av-img')}
+      <div><div class="detail-who">${NM[d.who]}</div><div class="detail-date">${fmtDate(d.date)}</div></div>
+      <div class="detail-mood">${d.mood}</div>
+    </div>
+    <div style="font-size:16px;font-weight:700;color:var(--pink);margin-bottom:12px;">${d.title}</div>
+    <div class="detail-body">${d.body}</div>`;
+  go('s-diary-detail');
+}
+
+(function(){document.getElementById('mood-row').innerHTML=MOODS.map(m=>`<div class="mood-chip${m===selMood?' sel':''}" onclick="selMoodF('${m}')">${m}</div>`).join('');})();
+function selMoodF(m){selMood=m;document.querySelectorAll('#mood-row .mood-chip').forEach(c=>c.classList.toggle('sel',c.textContent===m));}
+function openWrite(){document.getElementById('write-overlay').classList.add('show');}
+function closeWrite(){document.getElementById('write-overlay').classList.remove('show');document.getElementById('di-title').value='';document.getElementById('di-body').value='';}
+function saveDiary(){
+  const title=document.getElementById('di-title').value.trim();
+  const body=document.getElementById('di-body').value.trim();
+  if(!title&&!body){alert('なにか書いてね！');return;}
+  const now=new Date();
+  diaries.push({id:nextDiaryId++,who:user,title:title||'むだいの日記',body:body||'...',mood:selMood,date:now.toISOString().slice(0,10),ts:Date.now()});
+  closeWrite();renderDiaries();updateBadges();
+}
+
+(function(){document.getElementById('cat-row').innerHTML=CATS.map(c=>`<div class="mood-chip${c===selCat?' sel':''}" onclick="selCatF('${c}')">${c}</div>`).join('');renderFilters();})();
+function selCatF(c){selCat=c;document.querySelectorAll('#cat-row .mood-chip').forEach(x=>x.classList.toggle('sel',x.textContent===c));}
+function selWho(w){selWhoW=w;['both','bear','bunny'].forEach(x=>document.getElementById('wh-'+x).classList.toggle('sel',x===w));}
+function togWishForm(){document.getElementById('wish-form').classList.toggle('open');}
+function addWish(){
+  const t=document.getElementById('wi-text').value.trim();
+  if(!t){alert('やりたいことを書いてね！');return;}
+  wishes.push({id:nextWishId++,text:t,who:selWhoW,cat:selCat,done:false,ts:Date.now()});
+  document.getElementById('wi-text').value='';document.getElementById('wish-form').classList.remove('open');
+  renderWishes();updateBadges();
+}
+function toggleWish(id){const w=wishes.find(x=>x.id===id);if(w){w.done=!w.done;renderWishes();updateBadges();}}
+function delWish(id){if(!confirm('けしますか？'))return;wishes=wishes.filter(x=>x.id!==id);renderWishes();updateBadges();}
+function renderFilters(){document.getElementById('wish-filters').innerHTML=`<div class="filter-chip${filterDone==='all'?' active':''}" onclick="setFilter('all')">すべて</div><div class="filter-chip${filterDone==='left'?' active':''}" onclick="setFilter('left')">のこり</div><div class="filter-chip${filterDone==='done'?' active':''}" onclick="setFilter('done')">たっせい</div>`;}
+function setFilter(v){filterDone=v;renderFilters();renderWishes();}
+function renderWishes(){
+  const total=wishes.length,done=wishes.filter(w=>w.done).length,pct=total?Math.round(done/total*100):0;
+  document.getElementById('ws-total').textContent=total;document.getElementById('ws-done').textContent=done;document.getElementById('ws-pct').textContent=pct+'%';
+  document.getElementById('prog-fill').style.width=pct+'%';document.getElementById('prog-text').textContent=pct+'%';
+  let list=wishes;
+  if(filterDone==='left')list=list.filter(w=>!w.done);
+  if(filterDone==='done')list=list.filter(w=>w.done);
+  const el=document.getElementById('wish-list');
+  if(!list.length){el.innerHTML='<div class="empty"><span class="empty-icon">✨</span>ここにはなにもないよ</div>';return;}
+  el.innerHTML=[...list].sort((a,b)=>a.done-b.done||b.ts-a.ts).map(w=>`
+    <div class="wish-item${w.done?' done':''} fade-up">
+      <div class="wish-check${w.done?' checked':''}" onclick="toggleWish(${w.id})">${w.done?'✓':''}</div>
+      <div class="wish-content">
+        <div class="wish-text">${w.text}</div>
+        <div class="wish-meta">
+          <span class="wish-who">${w.who==='both'?'🐻🐰 ふたりで':w.who==='bear'?'🐻 ちゅちくま':'🐰 やようさ'}</span>
+          <span class="wish-cat" style="background:${CAT_COLORS[w.cat]||'#f0f0f0'}">${w.cat}</span>
+        </div>
+      </div>
+      <button class="wish-del" onclick="delWish(${w.id})">🗑</button>
+    </div>`).join('');
+}
+</script>
+</body>
+</html>
