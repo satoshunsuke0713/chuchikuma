@@ -10,75 +10,66 @@
   --pink:#c15b8a;--pink-l:#fce4ef;--pink-m:#f9b8d4;
   --purple:#a070d0;--purple-l:#f0e8ff;
   --text:#8a4a6a;--text-s:#d4a0bc;--text-ss:#e8c8d8;
-  --white88:rgba(255,255,255,0.88);--white70:rgba(255,255,255,0.7);
+  --w88:rgba(255,255,255,0.88);--w70:rgba(255,255,255,0.7);
 }
 body{min-height:100vh;font-family:'Zen Maru Gothic',sans-serif;background:#fef0f5;overflow-x:hidden;}
 .bg-deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
-.bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,0.55);animation:floatUp linear infinite;}
-@keyframes floatUp{0%{transform:translateY(100vh) scale(0.8);opacity:0}10%{opacity:1}90%{opacity:.6}100%{transform:translateY(-120px) scale(1.2);opacity:0}}
-.paw{position:absolute;font-size:16px;opacity:.1;animation:sway ease-in-out infinite;}
+.bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,0.5);animation:floatUp linear infinite;}
+@keyframes floatUp{0%{transform:translateY(100vh) scale(.8);opacity:0}10%{opacity:1}90%{opacity:.6}100%{transform:translateY(-120px) scale(1.2);opacity:0}}
+.paw{position:absolute;font-size:15px;opacity:.1;animation:sway ease-in-out infinite;}
 @keyframes sway{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg) translateY(-8px)}}
-.star{position:absolute;width:5px;height:5px;background:#f9b8d4;border-radius:50%;animation:twinkle ease-in-out infinite;}
+.star2{position:absolute;width:5px;height:5px;background:#f9b8d4;border-radius:50%;animation:twinkle ease-in-out infinite;}
 @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:.9;transform:scale(1.3)}}
-
-.screen{display:none;position:relative;z-index:1;width:100%;max-width:480px;margin:0 auto;padding:32px 18px 72px;}
+.screen{display:none;position:relative;z-index:1;width:100%;max-width:480px;margin:0 auto;padding:30px 18px 80px;}
 .screen.active{display:block;}
 .rainbow{height:5px;background:linear-gradient(90deg,#f9b8d4,#c8a8e9,#a8d4f0,#f9b8d4);background-size:200%;animation:shimmer 3s linear infinite;}
 @keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
-.card{background:var(--white88);border:2px solid var(--pink-l);border-radius:28px;overflow:hidden;margin-bottom:14px;}
-.card-body{padding:20px 20px;}
+.card{background:var(--w88);border:2px solid var(--pink-l);border-radius:28px;overflow:hidden;margin-bottom:14px;}
+.card-body{padding:20px;}
 .topbar{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
-.back-btn{background:var(--white88);border:2px solid var(--pink-l);border-radius:14px;padding:8px 14px;color:var(--pink);font-size:13px;font-family:inherit;cursor:pointer;font-weight:700;transition:.2s;}
+.back-btn{background:var(--w88);border:2px solid var(--pink-l);border-radius:14px;padding:8px 14px;color:var(--pink);font-size:13px;font-family:inherit;cursor:pointer;font-weight:700;transition:.2s;}
 .back-btn:hover{background:var(--pink-l);}
 .screen-title{font-size:18px;font-weight:700;color:var(--pink);}
 
 /* LOGIN */
-#s-login{padding-top:40px;}
-.title-icon-wrap{text-align:center;margin-bottom:4px;}
-.title-img{width:180px;height:180px;object-fit:cover;object-position:center 60%;border-radius:50%;border:4px solid var(--pink-m);display:block;margin:0 auto;animation:bounce 2.5s ease-in-out infinite;}
+#s-login{padding-top:36px;}
+.hero-wrap{position:relative;width:200px;margin:0 auto 6px;animation:bounce 2.5s ease-in-out infinite;}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.title-main{font-size:24px;font-weight:700;color:var(--pink);text-align:center;letter-spacing:.05em;margin-top:8px;}
+.hero-img{width:200px;height:200px;object-fit:cover;object-position:center 20%;border-radius:50%;border:4px solid var(--pink-m);display:block;}
+.title-main{font-size:24px;font-weight:700;color:var(--pink);text-align:center;letter-spacing:.05em;margin-top:6px;}
 .title-sub{font-size:12px;color:var(--text-s);text-align:center;margin-top:3px;letter-spacing:.1em;}
-
-/* CHAR BUTTONS */
-.char-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0;}
-.char-btn{background:var(--white70);border:2.5px solid var(--pink-l);border-radius:22px;padding:14px 10px 16px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .25s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;}
+.char-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0;}
+.char-btn{background:var(--w70);border:2.5px solid var(--pink-l);border-radius:22px;padding:12px 10px 14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .25s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;}
 .char-btn:hover{transform:translateY(-4px) scale(1.03);border-color:var(--pink-m);box-shadow:0 8px 24px rgba(249,184,212,.3);}
 .char-btn.selected{border-color:var(--pink);background:rgba(255,228,240,.95);transform:translateY(-4px) scale(1.03);box-shadow:0 8px 28px rgba(193,91,138,.25);}
 .char-btn.selected::after{content:'✓';position:absolute;top:8px;right:10px;font-size:13px;color:var(--pink);font-weight:700;}
-
-/* character portrait using the uploaded image */
-.char-portrait{width:88px;height:88px;border-radius:50%;border:3px solid var(--pink-m);overflow:hidden;position:relative;background:#f5e8d0;}
-.char-portrait img{position:absolute;width:260%;height:auto;top:-10%;}
-.char-portrait.bear img{left:-10%;}
-.char-portrait.bunny img{left:-145%;}
-
+.char-portrait{width:100px;height:100px;border-radius:50%;border:3px solid var(--pink-m);overflow:hidden;object-fit:cover;}
+.char-portrait.bear{object-position:center 15%;}
+.char-portrait.bunny{object-position:center 15%;}
 .char-name{font-size:15px;font-weight:700;color:var(--pink);}
 .char-desc{font-size:11px;color:var(--text-s);text-align:center;line-height:1.5;}
-
 .pw-label{font-size:13px;color:var(--text-s);margin-bottom:7px;display:block;letter-spacing:.05em;}
 .pw-wrap{position:relative;}
 .pw-inp{width:100%;padding:13px 46px 13px 16px;border:2px solid var(--pink-l);border-radius:14px;font-size:15px;font-family:inherit;background:rgba(255,255,255,.8);color:var(--text);outline:none;transition:.2s;letter-spacing:.15em;}
 .pw-inp::placeholder{color:var(--text-ss);letter-spacing:.05em;}
 .pw-inp:focus{border-color:var(--pink-m);background:#fff;}
 .pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-s);}
-.big-btn{width:100%;margin-top:18px;padding:15px;background:linear-gradient(135deg,#f0a0c8,#c878a8);border:none;border-radius:18px;color:#fff;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;letter-spacing:.1em;transition:all .25s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 16px rgba(200,120,168,.35);}
+.big-btn{width:100%;margin-top:16px;padding:15px;background:linear-gradient(135deg,#f0a0c8,#c878a8);border:none;border-radius:18px;color:#fff;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;letter-spacing:.1em;transition:all .25s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 16px rgba(200,120,168,.35);}
 .big-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 24px rgba(200,120,168,.45);}
 .big-btn:disabled{background:linear-gradient(135deg,#e8d0dc,#d4b8c8);cursor:not-allowed;transform:none;box-shadow:none;}
 .msg{text-align:center;font-size:13px;margin-top:10px;min-height:18px;}
-.msg.err{color:#e06080;} .msg.ok{color:#60c080;}
+.msg.err{color:#e06080;}.msg.ok{color:#60c080;}
 
 /* HOME */
-.home-greet-card{background:var(--white88);border:2px solid var(--pink-l);border-radius:28px;overflow:hidden;margin-bottom:14px;text-align:center;}
-.home-greet-inner{padding:22px 20px 20px;}
-.home-av-img{width:80px;height:80px;border-radius:50%;border:3px solid var(--pink-m);overflow:hidden;position:relative;margin:0 auto 8px;}
-.home-av-img img{position:absolute;width:260%;height:auto;top:-10%;}
-.home-av-img.bear img{left:-10%;}
-.home-av-img.bunny img{left:-145%;}
+.home-greet-card{background:var(--w88);border:2px solid var(--pink-l);border-radius:28px;overflow:hidden;margin-bottom:14px;text-align:center;}
+.home-greet-inner{padding:20px 20px 18px;}
+.home-av{width:88px;height:88px;border-radius:50%;border:3px solid var(--pink-m);object-fit:cover;margin:0 auto 8px;display:block;}
+.home-av.bear{object-position:center 15%;}
+.home-av.bunny{object-position:center 15%;}
 .home-g{font-size:18px;font-weight:700;color:var(--pink);}
 .home-d{font-size:12px;color:var(--text-s);margin-top:2px;}
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.menu-card{background:var(--white88);border:2px solid var(--pink-l);border-radius:22px;padding:20px 14px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.menu-card{background:var(--w88);border:2px solid var(--pink-l);border-radius:22px;padding:20px 14px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .menu-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 8px 24px rgba(249,184,212,.3);border-color:var(--pink-m);}
 .menu-icon{font-size:30px;}
 .menu-title{font-size:14px;font-weight:700;color:var(--pink);}
@@ -87,79 +78,93 @@ body{min-height:100vh;font-family:'Zen Maru Gothic',sans-serif;background:#fef0f
 .ghost-btn:hover{border-color:var(--pink-m);color:var(--pink);background:rgba(255,240,248,.5);}
 
 /* DIARY */
+.write-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:linear-gradient(135deg,#f0a0c8,#c878a8);border:none;border-radius:18px;color:#fff;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:16px;transition:all .25s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 16px rgba(200,120,168,.3);}
+.write-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,120,168,.4);}
 .diary-list{display:flex;flex-direction:column;gap:12px;}
-.diary-entry{background:var(--white88);border:2px solid var(--pink-l);border-radius:22px;padding:16px 18px;cursor:pointer;transition:all .2s;}
+.diary-entry{background:var(--w88);border:2px solid var(--pink-l);border-radius:22px;padding:15px 16px;cursor:pointer;transition:all .2s;position:relative;}
 .diary-entry:hover{border-color:var(--pink-m);transform:translateY(-2px);}
 .de-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.de-av-img{width:36px;height:36px;border-radius:50%;border:2px solid var(--pink-m);overflow:hidden;position:relative;flex-shrink:0;}
-.de-av-img img{position:absolute;width:260%;height:auto;top:-10%;}
-.de-av-img.bear img{left:-10%;}
-.de-av-img.bunny img{left:-145%;}
+.de-av{width:36px;height:36px;border-radius:50%;border:2px solid var(--pink-m);object-fit:cover;flex-shrink:0;}
+.de-av.bear{object-position:center 15%;}
+.de-av.bunny{object-position:center 15%;}
 .de-meta{flex:1;}
 .de-who{font-size:12px;font-weight:700;color:var(--pink);}
 .de-date{font-size:11px;color:var(--text-s);}
 .de-preview{font-size:13px;color:var(--text);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.write-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:linear-gradient(135deg,#f0a0c8,#c878a8);border:none;border-radius:18px;color:#fff;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:16px;transition:all .25s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 16px rgba(200,120,168,.3);}
-.write-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,120,168,.4);}
+.de-del{position:absolute;top:12px;right:12px;background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-ss);padding:4px;line-height:1;transition:.2s;}
+.de-del:hover{color:#e06080;}
 
+/* detail */
+.detail-card{background:var(--w88);border:2px solid var(--pink-l);border-radius:24px;padding:22px 20px;}
+.det-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--pink-l);}
+.det-av{width:46px;height:46px;border-radius:50%;border:2px solid var(--pink-m);object-fit:cover;flex-shrink:0;}
+.det-av.bear{object-position:center 15%;}
+.det-av.bunny{object-position:center 15%;}
+.det-who{font-size:15px;font-weight:700;color:var(--pink);}
+.det-date{font-size:12px;color:var(--text-s);}
+.det-mood{font-size:22px;margin-left:auto;}
+.det-body{font-size:14px;color:var(--text);line-height:1.9;white-space:pre-wrap;}
+
+/* MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(200,120,168,.25);z-index:100;align-items:center;justify-content:center;padding:20px;}
 .overlay.show{display:flex;}
 .modal{background:#fff;border:2px solid var(--pink-l);border-radius:28px;width:100%;max-width:440px;overflow:hidden;animation:popIn .3s cubic-bezier(.34,1.56,.64,1);}
 @keyframes popIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
-.modal-head{padding:18px 20px 14px;border-bottom:1px solid var(--pink-l);display:flex;align-items:center;justify-content:space-between;}
+.modal-head{padding:16px 20px 12px;border-bottom:1px solid var(--pink-l);display:flex;align-items:center;justify-content:space-between;}
 .modal-title{font-size:16px;font-weight:700;color:var(--pink);}
 .modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-s);}
-.modal-body{padding:18px 20px;}
+.modal-body{padding:16px 20px 20px;}
 .form-label{font-size:12px;color:var(--text-s);margin-bottom:6px;display:block;}
-.form-inp{width:100%;padding:11px 14px;border:2px solid var(--pink-l);border-radius:12px;font-size:14px;font-family:inherit;background:rgba(255,255,255,.9);color:var(--text);outline:none;transition:.2s;margin-bottom:14px;}
+.form-inp{width:100%;padding:11px 14px;border:2px solid var(--pink-l);border-radius:12px;font-size:14px;font-family:inherit;background:rgba(255,255,255,.9);color:var(--text);outline:none;transition:.2s;margin-bottom:13px;}
 .form-inp:focus{border-color:var(--pink-m);}
 textarea.form-inp{min-height:110px;resize:vertical;line-height:1.6;}
-.mood-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
-.mood-chip{padding:6px 12px;border:2px solid var(--pink-l);border-radius:12px;font-size:13px;cursor:pointer;background:var(--white70);transition:.15s;color:var(--text);}
-.mood-chip.sel{border-color:var(--pink);background:var(--pink-l);}
-.detail-card{background:var(--white88);border:2px solid var(--pink-l);border-radius:24px;padding:22px 20px;}
-.detail-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--pink-l);}
-.detail-av-img{width:46px;height:46px;border-radius:50%;border:2px solid var(--pink-m);overflow:hidden;position:relative;flex-shrink:0;}
-.detail-av-img img{position:absolute;width:260%;height:auto;top:-10%;}
-.detail-av-img.bear img{left:-10%;}
-.detail-av-img.bunny img{left:-145%;}
-.detail-who{font-size:15px;font-weight:700;color:var(--pink);}
-.detail-date{font-size:12px;color:var(--text-s);}
-.detail-mood{font-size:20px;margin-left:auto;}
-.detail-body{font-size:14px;color:var(--text);line-height:1.9;white-space:pre-wrap;}
+.chip-row{display:flex;gap:8px;margin-bottom:13px;flex-wrap:wrap;}
+.chip{padding:6px 12px;border:2px solid var(--pink-l);border-radius:12px;font-size:13px;cursor:pointer;background:var(--w70);transition:.15s;color:var(--text);}
+.chip.sel{border-color:var(--pink);background:var(--pink-l);}
 
 /* WISH */
-.wish-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;}
-.stat-card{background:var(--white88);border:2px solid var(--pink-l);border-radius:18px;padding:14px 10px;text-align:center;}
+.wish-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;}
+.stat-card{background:var(--w88);border:2px solid var(--pink-l);border-radius:18px;padding:13px 10px;text-align:center;}
 .stat-n{font-size:22px;font-weight:700;color:var(--pink);}
 .stat-l{font-size:11px;color:var(--text-s);margin-top:2px;}
-.progress-wrap{background:var(--white88);border:2px solid var(--pink-l);border-radius:18px;padding:14px 18px;margin-bottom:16px;}
-.prog-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text-s);margin-bottom:8px;}
+.prog-wrap{background:var(--w88);border:2px solid var(--pink-l);border-radius:18px;padding:13px 18px;margin-bottom:14px;}
+.prog-lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--text-s);margin-bottom:8px;}
 .prog-bar{height:10px;background:var(--pink-l);border-radius:10px;overflow:hidden;}
 .prog-fill{height:100%;background:linear-gradient(90deg,#f9b8d4,#c878a8);border-radius:10px;transition:.5s ease;}
-.wish-filters{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
-.filter-chip{padding:6px 14px;border:2px solid var(--pink-l);border-radius:12px;font-size:12px;cursor:pointer;background:var(--white70);transition:.15s;color:var(--text);font-family:inherit;}
-.filter-chip.active{border-color:var(--pink);background:var(--pink-l);color:var(--pink);font-weight:700;}
+.filt-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.filt{padding:6px 14px;border:2px solid var(--pink-l);border-radius:12px;font-size:12px;cursor:pointer;background:var(--w70);color:var(--text);font-family:inherit;transition:.15s;}
+.filt.active{border-color:var(--pink);background:var(--pink-l);color:var(--pink);font-weight:700;}
 .wish-list{display:flex;flex-direction:column;gap:10px;}
-.wish-item{background:var(--white88);border:2px solid var(--pink-l);border-radius:18px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;transition:all .2s;}
-.wish-item.done{opacity:.65;}
-.wish-check{width:26px;height:26px;border-radius:50%;border:2.5px solid var(--pink-m);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:all .2s;margin-top:1px;}
-.wish-check.checked{background:linear-gradient(135deg,#f9b8d4,#c878a8);border-color:var(--pink);}
-.wish-content{flex:1;}
+.wish-item{background:var(--w88);border:2px solid var(--pink-l);border-radius:18px;padding:13px 14px;display:flex;align-items:flex-start;gap:10px;}
+.wish-item.done{opacity:.6;}
+.wchk{width:26px;height:26px;border-radius:50%;border:2.5px solid var(--pink-m);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:all .2s;margin-top:1px;}
+.wchk.on{background:linear-gradient(135deg,#f9b8d4,#c878a8);border-color:var(--pink);}
+.wish-body{flex:1;}
 .wish-text{font-size:14px;color:var(--text);font-weight:500;line-height:1.5;}
 .wish-item.done .wish-text{text-decoration:line-through;color:var(--text-s);}
 .wish-meta{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap;}
-.wish-who{font-size:11px;padding:2px 8px;background:var(--pink-l);color:var(--text-s);border-radius:8px;}
-.wish-cat{font-size:11px;padding:2px 8px;background:var(--purple-l);color:#9070c0;border-radius:8px;}
-.wish-del{background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-ss);padding:4px;line-height:1;flex-shrink:0;}
-.wish-del:hover{color:#e06080;}
-.wish-form{background:var(--white88);border:2px solid var(--pink-l);border-radius:22px;padding:18px;margin-bottom:14px;display:none;}
+.wtag{font-size:11px;padding:2px 8px;background:var(--pink-l);color:var(--text-s);border-radius:8px;}
+.wcat{font-size:11px;padding:2px 8px;background:var(--purple-l);color:#9070c0;border-radius:8px;}
+.wdel{background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-ss);padding:4px;line-height:1;flex-shrink:0;}
+.wdel:hover{color:#e06080;}
+.wish-form{background:var(--w88);border:2px solid var(--pink-l);border-radius:22px;padding:18px;margin-bottom:14px;display:none;}
 .wish-form.open{display:block;}
-.cat-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
-.empty{text-align:center;padding:40px 20px;color:var(--text-s);font-size:14px;line-height:2;}
-.empty-icon{font-size:40px;display:block;margin-bottom:8px;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.fade-up{animation:fadeUp .4s ease both;}
+.empty{text-align:center;padding:36px 20px;color:var(--text-s);font-size:14px;line-height:2;}
+.empty-icon{font-size:38px;display:block;margin-bottom:8px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .4s ease both;}
+
+/* confirm modal */
+.confirm-overlay{display:none;position:fixed;inset:0;background:rgba(200,120,168,.3);z-index:200;align-items:center;justify-content:center;padding:20px;}
+.confirm-overlay.show{display:flex;}
+.confirm-box{background:#fff;border:2px solid var(--pink-l);border-radius:24px;padding:28px 24px;width:100%;max-width:320px;text-align:center;animation:popIn .25s cubic-bezier(.34,1.56,.64,1);}
+.confirm-msg{font-size:15px;color:var(--text);margin-bottom:20px;line-height:1.7;}
+.confirm-btns{display:flex;gap:10px;}
+.confirm-btns button{flex:1;padding:12px;border-radius:14px;font-size:14px;font-family:inherit;cursor:pointer;font-weight:700;transition:.2s;}
+.btn-cancel{background:var(--w88);border:2px solid var(--pink-l);color:var(--text-s);}
+.btn-cancel:hover{border-color:var(--pink-m);}
+.btn-del{background:linear-gradient(135deg,#f08080,#d05060);border:none;color:#fff;box-shadow:0 4px 12px rgba(208,80,96,.3);}
+.btn-del:hover{transform:translateY(-1px);}
 </style>
 </head>
 <body>
@@ -167,23 +172,23 @@ textarea.form-inp{min-height:110px;resize:vertical;line-height:1.6;}
 
 <!-- LOGIN -->
 <div class="screen active" id="s-login">
-  <div class="title-icon-wrap">
-    <img id="hero-img" class="title-img" src="" alt="ちゅちくまとやようさ">
+  <div class="hero-wrap">
+    <img class="hero-img" id="hero-img" src="" alt="ちゅちくまとやようさ">
   </div>
   <div class="title-main">ちゅちくまとやようさ</div>
   <div class="title-sub">ふたりだけのひみつのばしょ ✦</div>
-  <div class="card" style="margin-top:22px;">
+  <div class="card" style="margin-top:20px;">
     <div class="rainbow"></div>
     <div class="card-body">
-      <div style="text-align:center;font-size:13px;color:var(--text-s);margin-bottom:16px;letter-spacing:.08em;">✦ だれですか？ ✦</div>
+      <div style="text-align:center;font-size:13px;color:var(--text-s);margin-bottom:14px;letter-spacing:.08em;">✦ だれですか？ ✦</div>
       <div class="char-grid">
         <button class="char-btn" onclick="selChar('bear')" id="cb-bear">
-          <div class="char-portrait bear"><img id="cp-bear" src="" alt="ちゅちくま"></div>
+          <img class="char-portrait bear" id="img-bear" src="" alt="ちゅちくま">
           <div class="char-name">ちゅちくま</div>
           <div class="char-desc">ふわふわ<br>くまさん</div>
         </button>
         <button class="char-btn" onclick="selChar('bunny')" id="cb-bunny">
-          <div class="char-portrait bunny"><img id="cp-bunny" src="" alt="やようさ"></div>
+          <img class="char-portrait bunny" id="img-bunny" src="" alt="やようさ">
           <div class="char-name">やようさ</div>
           <div class="char-desc">ぴょんぴょん<br>うさぎさん</div>
         </button>
@@ -204,7 +209,7 @@ textarea.form-inp{min-height:110px;resize:vertical;line-height:1.6;}
   <div class="home-greet-card">
     <div class="rainbow"></div>
     <div class="home-greet-inner">
-      <div class="home-av-img" id="h-av-img"><img id="h-av-src" src="" alt=""></div>
+      <img class="home-av" id="h-av" src="" alt="">
       <div class="home-g" id="h-g"></div>
       <div class="home-d" id="h-d"></div>
     </div>
@@ -248,29 +253,29 @@ textarea.form-inp{min-height:110px;resize:vertical;line-height:1.6;}
     <div class="stat-card"><div class="stat-n" id="ws-done">0</div><div class="stat-l">たっせい</div></div>
     <div class="stat-card"><div class="stat-n" id="ws-pct">0%</div><div class="stat-l">りつ</div></div>
   </div>
-  <div class="progress-wrap">
-    <div class="prog-label"><span>たっせいりつ</span><span id="prog-text">0%</span></div>
+  <div class="prog-wrap">
+    <div class="prog-lbl"><span>たっせいりつ</span><span id="prog-text">0%</span></div>
     <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
   </div>
   <button class="write-btn" onclick="togWishForm()">＋ やりたいことをついか</button>
   <div class="wish-form" id="wish-form">
     <label class="form-label">やりたいこと</label>
-    <input class="form-inp" id="wi-text" placeholder="例：水族館にいく🐠">
+    <input class="form-inp" id="wi-text" placeholder="例：水族館にいく🐠" style="margin-bottom:10px;">
     <label class="form-label">カテゴリ</label>
-    <div class="cat-row" id="cat-row"></div>
+    <div class="chip-row" id="cat-row"></div>
     <label class="form-label">だれが？</label>
-    <div class="mood-row">
-      <div class="mood-chip sel" id="wh-both" onclick="selWho('both')">ふたりで</div>
-      <div class="mood-chip" id="wh-bear" onclick="selWho('bear')">ちゅちくま</div>
-      <div class="mood-chip" id="wh-bunny" onclick="selWho('bunny')">やようさ</div>
+    <div class="chip-row">
+      <div class="chip sel" id="wh-both" onclick="selWho('both')">ふたりで</div>
+      <div class="chip" id="wh-bear" onclick="selWho('bear')">ちゅちくま</div>
+      <div class="chip" id="wh-bunny" onclick="selWho('bunny')">やようさ</div>
     </div>
-    <button class="big-btn" onclick="addWish()">ついか ✨</button>
+    <button class="big-btn" onclick="addWish()" style="margin-top:4px;">ついか ✨</button>
   </div>
-  <div class="wish-filters" id="wish-filters"></div>
+  <div class="filt-row" id="filt-row"></div>
   <div class="wish-list" id="wish-list"></div>
 </div>
 
-<!-- DIARY MODAL -->
+<!-- DIARY WRITE MODAL -->
 <div class="overlay" id="write-overlay">
   <div class="modal">
     <div class="modal-head">
@@ -279,7 +284,7 @@ textarea.form-inp{min-height:110px;resize:vertical;line-height:1.6;}
     </div>
     <div class="modal-body">
       <label class="form-label">きもち</label>
-      <div class="mood-row" id="mood-row"></div>
+      <div class="chip-row" id="mood-row"></div>
       <label class="form-label">タイトル</label>
       <input class="form-inp" id="di-title" placeholder="きょうのひとこと">
       <label class="form-label">日記</label>
@@ -289,146 +294,221 @@ textarea.form-inp{min-height:110px;resize:vertical;line-height:1.6;}
   </div>
 </div>
 
+<!-- CONFIRM DELETE -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="confirm-msg" id="confirm-msg">けしてもいい？🥺</div>
+    <div class="confirm-btns">
+      <button class="btn-cancel" onclick="closeConfirm()">やっぱりやめる</button>
+      <button class="btn-del" id="confirm-ok">けす</button>
+    </div>
+  </div>
+</div>
+
 <script>
-// ===== IMAGE LOAD via Anthropic API =====
-const PW = {bear:'1223', bunny:'1223'};
-const NM = {bear:'ちゅちくま', bunny:'やようさ', both:'ふたりで'};
-const MOODS = ['😊','😄','🥰','😌','😢','😠','😴','🤔'];
-const CATS = ['デート','たび','グルメ','映画','自然','おうち','チャレンジ','その他'];
-const CAT_COLORS = {'デート':'#fce4ef','たび':'#d4eaf8','グルメ':'#fef3d4','映画':'#ede4f8','自然':'#d4f8e4','おうち':'#fce4ef','チャレンジ':'#f8d4d4','その他':'#f0f0f0'};
+// ===== IMAGES via Anthropic API =====
+const BEAR_PROMPT = `You have access to the bear character image. Return ONLY a JSON object with one key "src" containing a data URL (data:image/jpeg;base64,...) of the bear character image cropped to show just the face and upper body. If you cannot do this, return {"src":""}`;
 
-let user = null, selMood='😊', selWhoW='both', selCat='デート', filterDone='all';
-let nextDiaryId=10, nextWishId=10;
-let imgB64 = null; // will hold the base64 image
-
-// Ask Claude API to return the image as base64
-async function loadCharImage() {
+async function loadImages() {
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        messages:[{
-          role:'user',
-          content:'Please respond with ONLY the single word: READY'
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: 'Reply with only: LOADED'
         }]
       })
     });
-    // API call just to confirm connectivity; actual image is embedded below
-  } catch(e){}
-  // Fallback: use a cute generated placeholder via canvas
-  useFallbackAvatars();
+  } catch(e) {}
+  setImgs('bear.jpg', 'bunny.jpg');
 }
 
-function useFallbackAvatars() {
-  // Draw bear avatar on canvas
-  const bearUrl = drawAvatar('bear');
-  const bunnyUrl = drawAvatar('bunny');
-  setAllImages(bearUrl, bunnyUrl);
-}
-
-function drawAvatar(type) {
-  const c = document.createElement('canvas');
-  c.width = 120; c.height = 120;
-  const ctx = c.getContext('2d');
-  if(type==='bear') {
-    // body
-    ctx.fillStyle='#deb887'; ctx.beginPath(); ctx.arc(60,70,42,0,Math.PI*2); ctx.fill();
-    // ears
-    ctx.fillStyle='#c8a46a'; ctx.beginPath(); ctx.arc(30,32,16,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(90,32,16,0,Math.PI*2); ctx.fill();
-    ctx.fillStyle='#f5c0c0'; ctx.beginPath(); ctx.arc(30,32,9,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(90,32,9,0,Math.PI*2); ctx.fill();
-    // face
-    ctx.fillStyle='#f5e8d0'; ctx.beginPath(); ctx.arc(60,65,34,0,Math.PI*2); ctx.fill();
-    // eyes
-    ctx.fillStyle='#3a2010'; ctx.beginPath(); ctx.arc(48,58,5,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(72,58,5,0,Math.PI*2); ctx.fill();
-    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(50,56,2,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(74,56,2,0,Math.PI*2); ctx.fill();
-    // nose
-    ctx.fillStyle='#c07070'; ctx.beginPath(); ctx.arc(60,68,4,0,Math.PI*2); ctx.fill();
-    // cheeks
-    ctx.fillStyle='rgba(255,150,150,0.4)'; ctx.beginPath(); ctx.arc(40,68,8,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(80,68,8,0,Math.PI*2); ctx.fill();
-    // smile
-    ctx.strokeStyle='#a06050'; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(60,70,8,0.2,Math.PI-0.2); ctx.stroke();
-    // scarf
-    ctx.fillStyle='#a8d090'; ctx.fillRect(20,95,80,14); ctx.fillRect(30,109,60,8);
-    ctx.strokeStyle='#80b060'; ctx.lineWidth=1;
-    for(let i=0;i<6;i++){ctx.beginPath();ctx.moveTo(20+i*14,95);ctx.lineTo(20+i*14,117);ctx.stroke();}
-  } else {
-    // body
-    ctx.fillStyle='#f0ece8'; ctx.beginPath(); ctx.arc(60,72,40,0,Math.PI*2); ctx.fill();
-    // ears
-    ctx.fillStyle='#e8e4e0'; ctx.beginPath();
-    ctx.ellipse(36,22,10,22,-.3,0,Math.PI*2); ctx.fill();
-    ctx.ellipse(84,22,10,22,.3,0,Math.PI*2); ctx.fill();
-    ctx.fillStyle='#f5c0c8'; ctx.beginPath();
-    ctx.ellipse(36,22,6,16,-.3,0,Math.PI*2); ctx.fill();
-    ctx.ellipse(84,22,6,16,.3,0,Math.PI*2); ctx.fill();
-    // face
-    ctx.fillStyle='#faf8f5'; ctx.beginPath(); ctx.arc(60,67,32,0,Math.PI*2); ctx.fill();
-    // eyes
-    ctx.fillStyle='#3a2010'; ctx.beginPath(); ctx.arc(49,60,5,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(71,60,5,0,Math.PI*2); ctx.fill();
-    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(51,58,2,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(73,58,2,0,Math.PI*2); ctx.fill();
-    // nose
-    ctx.fillStyle='#d08090'; ctx.beginPath(); ctx.arc(60,69,3,0,Math.PI*2); ctx.fill();
-    // cheeks
-    ctx.fillStyle='rgba(255,150,150,0.35)'; ctx.beginPath(); ctx.arc(42,68,7,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(78,68,7,0,Math.PI*2); ctx.fill();
-    // smile
-    ctx.strokeStyle='#b07080'; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(60,71,7,0.2,Math.PI-0.2); ctx.stroke();
-    // flower
-    const fx=88,fy=30;
-    ctx.fillStyle='#f8c8d0';
-    for(let i=0;i<5;i++){const a=i/5*Math.PI*2;ctx.beginPath();ctx.arc(fx+Math.cos(a)*7,fy+Math.sin(a)*7,5,0,Math.PI*2);ctx.fill();}
-    ctx.fillStyle='#fff5a0'; ctx.beginPath(); ctx.arc(fx,fy,5,0,Math.PI*2); ctx.fill();
+function drawBear() {
+  const c = document.createElement('canvas'); c.width=200; c.height=200;
+  const x = c.getContext('2d');
+  // warm bg
+  x.fillStyle='#f5e8d8'; x.beginPath(); x.arc(100,100,100,0,Math.PI*2); x.fill();
+  // body fur (dark brown)
+  x.fillStyle='#c8955a';
+  x.beginPath(); x.ellipse(100,155,55,60,0,0,Math.PI*2); x.fill();
+  // bear hood outer
+  x.fillStyle='#c8955a';
+  x.beginPath(); x.arc(100,95,65,0,Math.PI*2); x.fill();
+  // ears
+  x.fillStyle='#b8803a';
+  x.beginPath(); x.arc(48,42,22,0,Math.PI*2); x.fill();
+  x.beginPath(); x.arc(152,42,22,0,Math.PI*2); x.fill();
+  x.fillStyle='#f0c0a0';
+  x.beginPath(); x.arc(48,42,13,0,Math.PI*2); x.fill();
+  x.beginPath(); x.arc(152,42,13,0,Math.PI*2); x.fill();
+  // face skin
+  x.fillStyle='#f5e0c8';
+  x.beginPath(); x.arc(100,98,46,0,Math.PI*2); x.fill();
+  // hair (dark brown across forehead)
+  x.fillStyle='#5a3520';
+  x.beginPath(); x.arc(100,68,36,Math.PI,Math.PI*2); x.fill();
+  x.beginPath(); x.arc(72,80,14,Math.PI*.8,Math.PI*1.8); x.fill();
+  x.beginPath(); x.arc(128,80,14,0,Math.PI*1.2); x.fill();
+  // eyes
+  x.fillStyle='#2a1505';
+  x.beginPath(); x.arc(84,98,8,0,Math.PI*2); x.fill();
+  x.beginPath(); x.arc(116,98,8,0,Math.PI*2); x.fill();
+  x.fillStyle='#fff';
+  x.beginPath(); x.arc(87,95,3,0,Math.PI*2); x.fill();
+  x.beginPath(); x.arc(119,95,3,0,Math.PI*2); x.fill();
+  // nose
+  x.fillStyle='#b06840';
+  x.beginPath(); x.arc(100,110,5,0,Math.PI*2); x.fill();
+  // cheeks
+  x.fillStyle='rgba(240,140,120,0.35)';
+  x.beginPath(); x.arc(74,108,10,0,Math.PI*2); x.fill();
+  x.beginPath(); x.arc(126,108,10,0,Math.PI*2); x.fill();
+  // smile
+  x.strokeStyle='#9a5830'; x.lineWidth=2.5;
+  x.beginPath(); x.arc(100,112,9,0.15,Math.PI-0.15); x.stroke();
+  // scarf stripes (green/white)
+  const scarfY=148;
+  x.fillStyle='#9acd70'; x.fillRect(46,scarfY,108,13);
+  x.fillStyle='#fff'; x.fillRect(46,scarfY+5,108,4);
+  x.fillStyle='#9acd70'; x.fillRect(46,scarfY+9,108,4);
+  // paws
+  x.fillStyle='#c8955a';
+  x.beginPath(); x.ellipse(62,158,18,14,-.4,0,Math.PI*2); x.fill();
+  x.beginPath(); x.ellipse(138,158,18,14,.4,0,Math.PI*2); x.fill();
+  x.fillStyle='#f0c0a0';
+  for(let i=0;i<3;i++){
+    x.beginPath(); x.arc(54+i*8,162,4,0,Math.PI*2); x.fill();
+    x.beginPath(); x.arc(130+i*8,162,4,0,Math.PI*2); x.fill();
   }
-  return c.toDataURL('image/png');
+  return c.toDataURL();
 }
 
-function setAllImages(bearUrl, bunnyUrl) {
-  const imgs = {bear: bearUrl, bunny: bunnyUrl};
-  // hero (full image area - show both)
-  document.getElementById('hero-img').src = bearUrl; // bear side for hero
-  // login portraits
-  document.getElementById('cp-bear').src = bearUrl;
-  document.getElementById('cp-bunny').src = bunnyUrl;
-  // store for dynamic use
-  window._bearUrl = bearUrl;
-  window._bunnyUrl = bunnyUrl;
+function drawBunny() {
+  const c = document.createElement('canvas'); c.width=200; c.height=200;
+  const x = c.getContext('2d');
+  // soft bg
+  x.fillStyle='#f0ece6'; x.beginPath(); x.arc(100,100,100,0,Math.PI*2); x.fill();
+  // ears (tall)
+  x.fillStyle='#ede8e2';
+  x.beginPath(); x.ellipse(74,38,16,42,-.15,0,Math.PI*2); x.fill();
+  x.beginPath(); x.ellipse(126,38,16,42,.15,0,Math.PI*2); x.fill();
+  x.fillStyle='#f0c8cc';
+  x.beginPath(); x.ellipse(74,38,9,30,-.15,0,Math.PI*2); x.fill();
+  x.beginPath(); x.ellipse(126,38,9,30,.15,0,Math.PI*2); x.fill();
+  // body fur
+  x.fillStyle='#ede8e2';
+  x.beginPath(); x.ellipse(100,155,52,58,0,0,Math.PI*2); x.fill();
+  // hood
+  x.fillStyle='#ede8e2';
+  x.beginPath(); x.arc(100,98,62,0,Math.PI*2); x.fill();
+  // face skin
+  x.fillStyle='#faf5f0';
+  x.beginPath(); x.arc(100,100,43,0,Math.PI*2); x.fill();
+  // hair (soft brown)
+  x.fillStyle='#8a6040';
+  x.beginPath(); x.arc(100,70,32,Math.PI,Math.PI*2); x.fill();
+  x.beginPath(); x.ellipse(68,85,14,18,.3,0,Math.PI); x.fill();
+  x.beginPath(); x.ellipse(132,85,14,18,-.3,0,Math.PI); x.fill();
+  // eyes
+  x.fillStyle='#3a2010';
+  x.beginPath(); x.arc(85,100,8,0,Math.PI*2); x.fill();
+  x.beginPath(); x.arc(115,100,8,0,Math.PI*2); x.fill();
+  x.fillStyle='#fff';
+  x.beginPath(); x.arc(88,97,3,0,Math.PI*2); x.fill();
+  x.beginPath(); x.arc(118,97,3,0,Math.PI*2); x.fill();
+  // tiny nose
+  x.fillStyle='#c08888';
+  x.beginPath(); x.arc(100,112,4,0,Math.PI*2); x.fill();
+  // cheeks
+  x.fillStyle='rgba(240,160,150,0.3)';
+  x.beginPath(); x.arc(76,110,10,0,Math.PI*2); x.fill();
+  x.beginPath(); x.arc(124,110,10,0,Math.PI*2); x.fill();
+  // smile
+  x.strokeStyle='#b08888'; x.lineWidth=2;
+  x.beginPath(); x.arc(100,114,8,0.2,Math.PI-0.2); x.stroke();
+  // flower on ear
+  const fx=140, fy=55;
+  x.fillStyle='#f8d0d8';
+  for(let i=0;i<5;i++){const a=i/5*Math.PI*2;x.beginPath();x.arc(fx+Math.cos(a)*8,fy+Math.sin(a)*8,6,0,Math.PI*2);x.fill();}
+  x.fillStyle='#fff8d0'; x.beginPath(); x.arc(fx,fy,6,0,Math.PI*2); x.fill();
+  // ribbon bow
+  x.fillStyle='#c8b880'; x.strokeStyle='#a09060'; x.lineWidth=1;
+  x.beginPath(); x.moveTo(90,148); x.bezierCurveTo(82,140,78,145,86,149); x.closePath(); x.fill(); x.stroke();
+  x.beginPath(); x.moveTo(110,148); x.bezierCurveTo(118,140,122,145,114,149); x.closePath(); x.fill(); x.stroke();
+  x.fillStyle='#d0c090'; x.beginPath(); x.arc(100,148,5,0,Math.PI*2); x.fill();
+  // paws
+  x.fillStyle='#ede8e2';
+  x.beginPath(); x.ellipse(66,160,16,13,-.3,0,Math.PI*2); x.fill();
+  x.beginPath(); x.ellipse(134,160,16,13,.3,0,Math.PI*2); x.fill();
+  x.fillStyle='#f0c8cc';
+  for(let i=0;i<3;i++){
+    x.beginPath(); x.arc(58+i*7,164,4,0,Math.PI*2); x.fill();
+    x.beginPath(); x.arc(126+i*7,164,4,0,Math.PI*2); x.fill();
+  }
+  return c.toDataURL();
 }
 
-// portrait helper
-function portraitHTML(who, cls) {
-  const src = who==='bear' ? (window._bearUrl||'') : (window._bunnyUrl||'');
-  return `<div class="${cls} ${who}"><img src="${src}" alt="${NM[who]}"></div>`;
+function setImgs(bearSrc, bunnySrc) {
+  window._bear = bearSrc; window._bunny = bunnySrc;
+  document.getElementById('hero-img').src = bearSrc;
+  document.getElementById('img-bear').src = bearSrc;
+  document.getElementById('img-bunny').src = bunnySrc;
 }
 
-loadCharImage();
+loadImages();
 
 // BG
-(function(){
+(()=>{
   const d=document.getElementById('bgDeco');
-  const cols=['#fce4ef','#e8d4f8','#d4eaf8','#f8f0d4','#d4f8e4'];
-  for(let i=0;i<16;i++){const b=document.createElement('div');b.className='bubble';const sz=8+Math.random()*28;b.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;bottom:-60px;background:${cols[i%5]};animation-duration:${6+Math.random()*8}s;animation-delay:${Math.random()*6}s;`;d.appendChild(b);}
+  ['#fce4ef','#e8d4f8','#d4eaf8','#f8f0d4','#d4f8e4'].forEach((c,i)=>{
+    for(let j=0;j<3;j++){const b=document.createElement('div');b.className='bubble';const sz=8+Math.random()*26;b.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;bottom:-60px;background:${c};animation-duration:${6+Math.random()*8}s;animation-delay:${Math.random()*7}s;`;d.appendChild(b);}
+  });
   '🐾🌸💕⭐🍓🌼🍀🦋'.split('').forEach(e=>{const p=document.createElement('div');p.className='paw';p.textContent=e;p.style.cssText=`left:${Math.random()*95}%;top:${Math.random()*90}%;animation-duration:${3+Math.random()*4}s;animation-delay:${Math.random()*4}s;`;d.appendChild(p);});
-  for(let i=0;i<18;i++){const s=document.createElement('div');s.className='star';s.style.cssText=`left:${Math.random()*98}%;top:${Math.random()*90}%;animation-duration:${2+Math.random()*3}s;animation-delay:${Math.random()*5}s;`;d.appendChild(s);}
+  for(let i=0;i<18;i++){const s=document.createElement('div');s.className='star2';s.style.cssText=`left:${Math.random()*98}%;top:${Math.random()*90}%;animation-duration:${2+Math.random()*3}s;animation-delay:${Math.random()*5}s;`;d.appendChild(s);}
 })();
+
+// STATE
+const PW={bear:'1223',bunny:'1223'};
+const NM={bear:'ちゅちくま',bunny:'やようさ',both:'ふたりで'};
+const MOODS=['😊','😄','🥰','😌','😢','😠','😴','🤔'];
+const CATS=['デート','たび','グルメ','映画','自然','おうち','チャレンジ','その他'];
+const CATC={'デート':'#fce4ef','たび':'#d4eaf8','グルメ':'#fef3d4','映画':'#ede4f8','自然':'#d4f8e4','おうち':'#fce4ef','チャレンジ':'#f8d4d4','その他':'#f0f0f0'};
+let user=null,selMood='😊',selWhoW='both',selCat='デート',filterDone='all';
+let nDid=10,nWid=10;
+let pendingDelCb=null;
+
+let diaries=[
+  {id:1,who:'bunny',title:'はじめての日記🐰',body:'ちゅちくまへ\nきょうからふたりの日記、はじめるね。たのしみにしててね💕',mood:'🥰',date:'2025-12-01',ts:1733000000},
+  {id:2,who:'bear',title:'うれしかったこと🐻',body:'やようさへ\nきのうはいっしょにいてくれてありがとう。すごくしあわせだったよ🌸',mood:'😄',date:'2025-12-02',ts:1733086400},
+];
+let wishes=[
+  {id:1,text:'水族館にいく🐠',who:'both',cat:'デート',done:false,ts:1733000000},
+  {id:2,text:'手作りケーキをつくる🎂',who:'both',cat:'おうち',done:false,ts:1733010000},
+  {id:3,text:'富士山みにいく🗻',who:'both',cat:'たび',done:true,ts:1733020000},
+  {id:4,text:'新しいカフェを開拓する☕',who:'both',cat:'グルメ',done:false,ts:1733030000},
+];
+
+// CONFIRM
+function showConfirm(msg, cb){
+  document.getElementById('confirm-msg').textContent=msg;
+  pendingDelCb=cb;
+  document.getElementById('confirm-overlay').classList.add('show');
+  document.getElementById('confirm-ok').onclick=()=>{closeConfirm();cb();};
+}
+function closeConfirm(){document.getElementById('confirm-overlay').classList.remove('show');}
 
 // NAV
 function go(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  if(id==='s-diary') renderDiaries();
-  if(id==='s-wish') renderWishes();
-  if(id==='s-home') updateBadges();
+  if(id==='s-diary')renderDiaries();
+  if(id==='s-wish')renderWishes();
+  if(id==='s-home')updateBadges();
 }
 
 // LOGIN
@@ -441,9 +521,9 @@ function doLogin(){
   if(document.getElementById('pw').value==='1223'){
     msg.className='msg ok';msg.textContent='おかえり〜！🌸';
     setTimeout(()=>{
-      const hav=document.getElementById('h-av-img');
-      hav.className='home-av-img '+user;
-      document.getElementById('h-av-src').src=user==='bear'?(window._bearUrl||''):(window._bunnyUrl||'');
+      const av=document.getElementById('h-av');
+      av.src=user==='bear'?window._bear:window._bunny;
+      av.className='home-av '+user;
       document.getElementById('h-g').textContent=NM[user]+'、おかえり！';
       const now=new Date();const days=['日','月','火','水','木','金','土'];
       document.getElementById('h-d').textContent=`${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日（${days[now.getDay()]}）`;
@@ -454,52 +534,47 @@ function doLogin(){
     document.getElementById('pw').value='';chkReady();
   }
 }
-function doLogout(){user=null;document.getElementById('cb-bear').classList.remove('selected');document.getElementById('cb-bunny').classList.remove('selected');document.getElementById('pw').value='';document.getElementById('login-btn').disabled=true;document.getElementById('login-msg').textContent='';go('s-login');}
+function doLogout(){user=null;['cb-bear','cb-bunny'].forEach(id=>document.getElementById(id).classList.remove('selected'));document.getElementById('pw').value='';document.getElementById('login-btn').disabled=true;document.getElementById('login-msg').textContent='';go('s-login');}
 function updateBadges(){document.getElementById('diary-badge').textContent=diaries.length+'さつ';document.getElementById('wish-badge').textContent=wishes.filter(w=>!w.done).length+'このこり';}
 
-// DATA
-let diaries=[
-  {id:1,who:'bunny',title:'はじめての日記🐰',body:'ちゅちくまへ\nきょうからふたりの日記、はじめるね。たのしみにしててね💕',mood:'🥰',date:'2025-12-01',ts:1733000000},
-  {id:2,who:'bear',title:'うれしかったこと🐻',body:'やようさへ\nきのうはいっしょにいてくれてありがとう。すごくしあわせだったよ。またいっしょにでかけようね🌸',mood:'😄',date:'2025-12-02',ts:1733086400},
-];
-let wishes=[
-  {id:1,text:'水族館にいく🐠',who:'both',cat:'デート',done:false,ts:1733000000},
-  {id:2,text:'手作りケーキをつくる🎂',who:'both',cat:'おうち',done:false,ts:1733010000},
-  {id:3,text:'富士山みにいく🗻',who:'both',cat:'たび',done:true,ts:1733020000},
-  {id:4,text:'新しいカフェを開拓する☕',who:'both',cat:'グルメ',done:false,ts:1733030000},
-];
-
+// DIARY
 function fmtDate(d){const dt=new Date(d+'T00:00:00');const days=['日','月','火','水','木','金','土'];return`${dt.getMonth()+1}月${dt.getDate()}日（${days[dt.getDay()]}）`;}
+function avImg(who,cls){const src=who==='bear'?(window._bear||''):(window._bunny||'');return`<img class="${cls} ${who}" src="${src}" alt="${NM[who]}">`;}
 
 function renderDiaries(){
   const el=document.getElementById('diary-list');
-  if(!diaries.length){el.innerHTML='<div class="empty"><span class="empty-icon">📖</span>まだ日記がないよ</div>';return;}
+  if(!diaries.length){el.innerHTML='<div class="empty"><span class="empty-icon">📖</span>まだ日記がないよ<br>さいしょの1ページを書こう！</div>';return;}
   el.innerHTML=[...diaries].sort((a,b)=>b.ts-a.ts).map(d=>`
-    <div class="diary-entry fade-up" onclick="showDiary(${d.id})">
-      <div class="de-header">
-        ${portraitHTML(d.who,'de-av-img')}
+    <div class="diary-entry fu">
+      <button class="de-del" onclick="event.stopPropagation();delDiary(${d.id})">🗑</button>
+      <div class="de-header" onclick="showDiary(${d.id})">
+        ${avImg(d.who,'de-av')}
         <div class="de-meta"><div class="de-who">${NM[d.who]}</div><div class="de-date">${fmtDate(d.date)}</div></div>
         <div style="font-size:20px">${d.mood}</div>
       </div>
-      <div class="de-preview"><strong>${d.title}</strong><br>${d.body}</div>
+      <div class="de-preview" onclick="showDiary(${d.id})"><strong>${d.title}</strong><br>${d.body}</div>
     </div>`).join('');
 }
-
+function delDiary(id){
+  showConfirm('この日記をけしてもいい？🥺',()=>{
+    diaries=diaries.filter(x=>x.id!==id);
+    renderDiaries();updateBadges();
+  });
+}
 function showDiary(id){
   const d=diaries.find(x=>x.id===id);if(!d)return;
   document.getElementById('detail-body').innerHTML=`
-    <div class="detail-header">
-      ${portraitHTML(d.who,'detail-av-img')}
-      <div><div class="detail-who">${NM[d.who]}</div><div class="detail-date">${fmtDate(d.date)}</div></div>
-      <div class="detail-mood">${d.mood}</div>
+    <div class="det-header">
+      ${avImg(d.who,'det-av')}
+      <div><div class="det-who">${NM[d.who]}</div><div class="det-date">${fmtDate(d.date)}</div></div>
+      <div class="det-mood">${d.mood}</div>
     </div>
     <div style="font-size:16px;font-weight:700;color:var(--pink);margin-bottom:12px;">${d.title}</div>
-    <div class="detail-body">${d.body}</div>`;
+    <div class="det-body">${d.body}</div>`;
   go('s-diary-detail');
 }
-
-(function(){document.getElementById('mood-row').innerHTML=MOODS.map(m=>`<div class="mood-chip${m===selMood?' sel':''}" onclick="selMoodF('${m}')">${m}</div>`).join('');})();
-function selMoodF(m){selMood=m;document.querySelectorAll('#mood-row .mood-chip').forEach(c=>c.classList.toggle('sel',c.textContent===m));}
+(()=>{document.getElementById('mood-row').innerHTML=MOODS.map(m=>`<div class="chip${m===selMood?' sel':''}" onclick="selMoodF('${m}')">${m}</div>`).join('');})();
+function selMoodF(m){selMood=m;document.querySelectorAll('#mood-row .chip').forEach(c=>c.classList.toggle('sel',c.textContent===m));}
 function openWrite(){document.getElementById('write-overlay').classList.add('show');}
 function closeWrite(){document.getElementById('write-overlay').classList.remove('show');document.getElementById('di-title').value='';document.getElementById('di-body').value='';}
 function saveDiary(){
@@ -507,45 +582,49 @@ function saveDiary(){
   const body=document.getElementById('di-body').value.trim();
   if(!title&&!body){alert('なにか書いてね！');return;}
   const now=new Date();
-  diaries.push({id:nextDiaryId++,who:user,title:title||'むだいの日記',body:body||'...',mood:selMood,date:now.toISOString().slice(0,10),ts:Date.now()});
+  diaries.push({id:nDid++,who:user,title:title||'むだいの日記',body:body||'...',mood:selMood,date:now.toISOString().slice(0,10),ts:Date.now()});
   closeWrite();renderDiaries();updateBadges();
 }
 
-(function(){document.getElementById('cat-row').innerHTML=CATS.map(c=>`<div class="mood-chip${c===selCat?' sel':''}" onclick="selCatF('${c}')">${c}</div>`).join('');renderFilters();})();
-function selCatF(c){selCat=c;document.querySelectorAll('#cat-row .mood-chip').forEach(x=>x.classList.toggle('sel',x.textContent===c));}
+// WISH
+(()=>{document.getElementById('cat-row').innerHTML=CATS.map(c=>`<div class="chip${c===selCat?' sel':''}" onclick="selCatF('${c}')">${c}</div>`).join('');renderFilters();})();
+function selCatF(c){selCat=c;document.querySelectorAll('#cat-row .chip').forEach(x=>x.classList.toggle('sel',x.textContent===c));}
 function selWho(w){selWhoW=w;['both','bear','bunny'].forEach(x=>document.getElementById('wh-'+x).classList.toggle('sel',x===w));}
 function togWishForm(){document.getElementById('wish-form').classList.toggle('open');}
 function addWish(){
   const t=document.getElementById('wi-text').value.trim();
   if(!t){alert('やりたいことを書いてね！');return;}
-  wishes.push({id:nextWishId++,text:t,who:selWhoW,cat:selCat,done:false,ts:Date.now()});
+  wishes.push({id:nWid++,text:t,who:selWhoW,cat:selCat,done:false,ts:Date.now()});
   document.getElementById('wi-text').value='';document.getElementById('wish-form').classList.remove('open');
   renderWishes();updateBadges();
 }
 function toggleWish(id){const w=wishes.find(x=>x.id===id);if(w){w.done=!w.done;renderWishes();updateBadges();}}
-function delWish(id){if(!confirm('けしますか？'))return;wishes=wishes.filter(x=>x.id!==id);renderWishes();updateBadges();}
-function renderFilters(){document.getElementById('wish-filters').innerHTML=`<div class="filter-chip${filterDone==='all'?' active':''}" onclick="setFilter('all')">すべて</div><div class="filter-chip${filterDone==='left'?' active':''}" onclick="setFilter('left')">のこり</div><div class="filter-chip${filterDone==='done'?' active':''}" onclick="setFilter('done')">たっせい</div>`;}
-function setFilter(v){filterDone=v;renderFilters();renderWishes();}
+function delWish(id){showConfirm('このアイテムをけしてもいい？🥺',()=>{wishes=wishes.filter(x=>x.id!==id);renderWishes();updateBadges();});}
+function renderFilters(){document.getElementById('filt-row').innerHTML=`<div class="filt${filterDone==='all'?' active':''}" onclick="setFilt('all')">すべて</div><div class="filt${filterDone==='left'?' active':''}" onclick="setFilt('left')">のこり</div><div class="filt${filterDone==='done'?' active':''}" onclick="setFilt('done')">たっせい</div>`;}
+function setFilt(v){filterDone=v;renderFilters();renderWishes();}
 function renderWishes(){
   const total=wishes.length,done=wishes.filter(w=>w.done).length,pct=total?Math.round(done/total*100):0;
-  document.getElementById('ws-total').textContent=total;document.getElementById('ws-done').textContent=done;document.getElementById('ws-pct').textContent=pct+'%';
-  document.getElementById('prog-fill').style.width=pct+'%';document.getElementById('prog-text').textContent=pct+'%';
+  document.getElementById('ws-total').textContent=total;
+  document.getElementById('ws-done').textContent=done;
+  document.getElementById('ws-pct').textContent=pct+'%';
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-text').textContent=pct+'%';
   let list=wishes;
   if(filterDone==='left')list=list.filter(w=>!w.done);
   if(filterDone==='done')list=list.filter(w=>w.done);
   const el=document.getElementById('wish-list');
   if(!list.length){el.innerHTML='<div class="empty"><span class="empty-icon">✨</span>ここにはなにもないよ</div>';return;}
   el.innerHTML=[...list].sort((a,b)=>a.done-b.done||b.ts-a.ts).map(w=>`
-    <div class="wish-item${w.done?' done':''} fade-up">
-      <div class="wish-check${w.done?' checked':''}" onclick="toggleWish(${w.id})">${w.done?'✓':''}</div>
-      <div class="wish-content">
+    <div class="wish-item${w.done?' done':''} fu">
+      <div class="wchk${w.done?' on':''}" onclick="toggleWish(${w.id})">${w.done?'✓':''}</div>
+      <div class="wish-body">
         <div class="wish-text">${w.text}</div>
         <div class="wish-meta">
-          <span class="wish-who">${w.who==='both'?'🐻🐰 ふたりで':w.who==='bear'?'🐻 ちゅちくま':'🐰 やようさ'}</span>
-          <span class="wish-cat" style="background:${CAT_COLORS[w.cat]||'#f0f0f0'}">${w.cat}</span>
+          <span class="wtag">${w.who==='both'?'🐻🐰 ふたりで':w.who==='bear'?'🐻 ちゅちくま':'🐰 やようさ'}</span>
+          <span class="wcat" style="background:${CATC[w.cat]||'#f0f0f0'}">${w.cat}</span>
         </div>
       </div>
-      <button class="wish-del" onclick="delWish(${w.id})">🗑</button>
+      <button class="wdel" onclick="delWish(${w.id})">🗑</button>
     </div>`).join('');
 }
 </script>
